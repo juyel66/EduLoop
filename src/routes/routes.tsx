@@ -1,7 +1,7 @@
 
 
 import { createBrowserRouter } from "react-router";
-import WelcomePage from "../pages/welcomePage/WelcomePage";
+import WelcomePage from "../pages/WelcomePage/welcomePage";
 
 export const router = createBrowserRouter([
   {
