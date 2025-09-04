@@ -8,16 +8,16 @@ const RootLayout = () => {
 
   return (
     <div
-      className="min-h-screen  flex flex-col bg-cover bg-center text-white rounded-t-3xl overflow-hidden"
+      className="min-h-screen flex flex-col bg-cover bg-center text-white rounded-t-3xl overflow-hidden"
       style={{ backgroundImage: "url('/images/background.png')" }}
     >
       {/* Navbar */}
       {!hideNavbarOnWelcome && <Navbar />}
 
       {/* Page Content */}
-      <div className="flex-grow">
+      <div className={`flex-grow pt-10 ${hideNavbarOnWelcome ? "pt-0" : ""}`}>
         <Outlet />
-       { !hideNavbarOnWelcome &&<Footer />}
+        {!hideNavbarOnWelcome && <Footer />}
       </div>
     </div>
   );
