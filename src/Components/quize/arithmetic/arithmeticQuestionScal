@@ -1,0 +1,374 @@
+; // File: components/FinalNumberLineQuiz.js
+
+; "use client";
+
+; import React, { useState, useEffect, useRef } from 'react';
+
+; // প্রশ্নগুলোর ডাটা। এখানে value হলো সঠিক উত্তর এবং position হলো স্ক্রিনে তার আনুমানিক অবস্থান (%)
+; const questions = [
+;   { id: 1, value: 10, position: 12 },
+;   { id: 2, value: 23, position: 24 },
+;   { id: 3, value: 34, position: 35 },
+;   { id: 4, value: 40, position: 44 },
+;   { id: 5, value: 50, position: 55 },
+;   { id: 6, value: 63, position: 68 },
+;   { id: 7, value: 95, position: 92 },
+; ];
+
+; const FinalNumberLineQuiz = () => {
+;   const [userAnswers, setUserAnswers] = useState({});
+;   const [linePaths, setLinePaths] = useState([]);
+;   const [showSuccess, setShowSuccess] = useState(false); // ফিডব্যাক বার্তার জন্য state
+
+;   const scaleRef = useRef(null);
+;   const inputsContainerRef = useRef(null);
+;   const mainContainerRef = useRef(null);
+
+;   const handleInputChange = (id, value) => {
+;     // ইনপুট পরিবর্তনের সাথে সাথে সফল বার্তাটি লুকিয়ে ফেলা হবে
+;     if (showSuccess) {
+;       setShowSuccess(false);
+;     }
+;     setUserAnswers(prevAnswers => ({
+;       ...prevAnswers,
+;       [id]: value,
+;     }));
+;   };
+  
+;   // উত্তর চেক করার জন্য ফাংশন
+;   const handleCheckAnswers = () => {
+;     if (questions.length !== Object.keys(userAnswers).length) {
+;       // যদি সবগুলো ইনপুট ফিল্ড পূরণ না হয়
+;       setShowSuccess(false);
+;       return;
+;     }
+    
+;     const allCorrect = questions.every(q => 
+;         parseInt(userAnswers[q.id], 10) === q.value
+;     );
+    
+;     setShowSuccess(allCorrect);
+;   };
+
+;   useEffect(() => {
+;     const calculateLines = () => {
+;       if (!scaleRef.current || !inputsContainerRef.current || !mainContainerRef.current) return;
+      
+;       const mainRect = mainContainerRef.current.getBoundingClientRect();
+;       const scaleRect = scaleRef.current.getBoundingClientRect();
+
+;       const newPaths = questions.map(q => {
+;         const x1 = scaleRect.left + (q.value / 100) * scaleRect.width - mainRect.left;
+;         const y1 = scaleRect.bottom - mainRect.top;
+
+;         const inputEl = inputsContainerRef.current.querySelector(`[data-id='${q.id}']`);
+;         if (!inputEl) return null;
+
+;         const inputRect = inputEl.getBoundingClientRect();
+;         const x2 = inputRect.left + inputRect.width / 2 - mainRect.left;
+;         const y2 = inputRect.top - mainRect.top;
+        
+;         // Quadratic Bézier curve (ছবির মতো সিম্পল বাঁকানোর জন্য)
+;         const controlX = (x1 + x2) / 2;
+;         const controlY = y1 + 10; // বাঁকের পরিমাণ
+
+;         return `M ${x1} ${y1} Q ${controlX} ${controlY} ${x2} ${y2}`;
+;       }).filter(Boolean);
+
+;       setLinePaths(newPaths);
+;     };
+
+;     const timeoutId = setTimeout(calculateLines, 100);
+;     window.addEventListener('resize', calculateLines);
+;     return () => {
+;       clearTimeout(timeoutId);
+;       window.removeEventListener('resize', calculateLines);
+;     };
+;   }, []);
+
+;   const getStyles = (question) => {
+;     const userAnswer = userAnswers[question.id];
+;     if (userAnswer === undefined || userAnswer === '') return 'border-gray-300';
+;     if (parseInt(userAnswer, 10) === question.value) return 'border-green-500 bg-green-50';
+;     return 'border-red-500 bg-red-50';
+;   };
+
+;   return (
+;     <div ref={mainContainerRef} className="w-full max-w-5xl mx-auto p-8 bg-white rounded-2xl shadow-lg relative font-sans">
+;       <h2 className="text-xl font-bold text-gray-800">Question 2</h2>
+;       <p className="text-gray-600 mb-8">Which number?</p>
+
+;       <svg className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
+;         {linePaths.map((path, index) => (
+;           <path key={index} d={path} stroke="#a0aec0" strokeWidth="1.5" fill="transparent" />
+;         ))}
+;       </svg>
+      
+;       {/* স্কেলের নিচের margin কমানো হয়েছে */}
+;       <div ref={scaleRef} className="relative w-full h-10 mt-4 mb-20">
+;         <div className="absolute bottom-0 w-full h-1 bg-gray-800 rounded-full"></div>
+;         {[...Array(101)].map((_, i) => {
+;           let height = 'h-2';
+;           if (i % 10 === 0) height = 'h-4';
+;           else if (i % 5 === 0) height = 'h-3';
+          
+;           return (
+;             <div key={i} className={`absolute bottom-0 bg-gray-800 w-0.5 ${height}`} style={{ left: `${i}%`, transform: 'translateX(-50%)' }}>
+;               {(i === 0 || i === 50 || i === 100) && (
+;                 <span className="absolute -bottom-7 -translate-x-1/2 text-md font-medium text-gray-700">{i}</span>
+;               )}
+;             </div>
+;           );
+;         })}
+;       </div>
+      
+;       {/* পরিবর্তন: ইনপুট বক্সগুলোকে Flexbox দিয়ে গ্রুপ করা হয়েছে */}
+;       <div ref={inputsContainerRef} className="relative flex justify-center items-center w-full flex-wrap gap-x-3 px-2">
+;         {questions.map((q, index) => (
+;           <React.Fragment key={q.id}>
+;             <input
+;               data-id={q.id}
+;               type="number"
+;               className={`w-16 h-10 text-center text-lg font-bold rounded-md border-2 outline-none transition-all duration-300 shadow-sm ${getStyles(q)}`}
+;               onChange={(e) => handleInputChange(q.id, e.target.value)}
+;               value={userAnswers[q.id] || ''}
+;             />
+;             {/* প্রতি ২টি ইনপুটের পর একটি বড় গ্যাপ দেওয়া হয়েছে */}
+;             {(index + 1) % 2 === 0 && index < questions.length - 1 && (
+;               <div className="w-6" /> // এটি জোড়াগুলোর মধ্যে গ্যাপ তৈরি করে
+;             )}
+;           </React.Fragment>
+;         ))}
+;       </div>
+
+;       <div className="mt-12 space-y-4">
+;         <div className="flex items-center justify-between">
+;           <div className="flex space-x-2">
+;             <button onClick={handleCheckAnswers} className="px-5 py-2 text-sm font-semibold text-white bg-[#4A90E2] rounded-lg hover:bg-[#3A7BC8]">Check</button>
+;             <button className="px-5 py-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">Hint</button>
+;             <button className="px-5 py-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">Show Solution</button>
+;           </div>
+;           <button className="px-5 py-2 font-semibold text-white bg-[#F5A623] rounded-full hover:bg-[#E49B20] flex items-center">
+;             Next <span className="ml-2 text-xl">→</span>
+;           </button>
+;         </div>
+        
+;         {showSuccess && (
+;           <div className="p-3 text-center text-green-800 bg-green-100 border border-green-300 rounded-lg">
+;             Correct! Great job.
+;           </div>
+;         )}
+
+;         <button className="px-5 py-2 text-sm font-semibold text-gray-600 bg-transparent border border-gray-300 rounded-lg hover:bg-gray-100">
+;           ← Switch Category
+;         </button>
+;       </div>
+;     </div>
+;   );
+; };
+
+; export default FinalNumberLineQuiz;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// File: components/FinalNumberLineQuiz.js
+
+"use client";
+
+import React, { useState, useEffect, useRef } from 'react';
+
+// প্রশ্নগুলোর ডাটা।
+const questions = [
+  { id: 1, value: 10, position: 12 },
+  { id: 2, value: 23, position: 24 },
+  { id: 3, value: 34, position: 35 },
+  { id: 4, value: 40, position: 44 },
+  { id: 5, value: 50, position: 55 },
+  { id: 6, value: 63, position: 68 },
+  { id: 7, value: 95, position: 92 },
+];
+
+const FinalNumberLineQuiz = () => {
+  const [userAnswers, setUserAnswers] = useState({});
+  // পরিবর্তন: linePaths এখন একটি অবজেক্ট, যা question id দিয়ে পাথ সংরক্ষণ করবে
+  const [linePaths, setLinePaths] = useState({});
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const scaleRef = useRef(null);
+  const inputsContainerRef = useRef(null);
+  const mainContainerRef = useRef(null);
+
+  const handleInputChange = (id, value) => {
+    if (showSuccess) {
+      setShowSuccess(false);
+    }
+    setUserAnswers(prevAnswers => ({
+      ...prevAnswers,
+      [id]: value,
+    }));
+  };
+  
+  const handleCheckAnswers = () => {
+    if (questions.length !== Object.keys(userAnswers).length) {
+      setShowSuccess(false);
+      return;
+    }
+    
+    const allCorrect = questions.every(q => 
+        parseInt(userAnswers[q.id], 10) === q.value
+    );
+    
+    setShowSuccess(allCorrect);
+  };
+
+  useEffect(() => {
+    const calculateLines = () => {
+      if (!scaleRef.current || !inputsContainerRef.current || !mainContainerRef.current) return;
+      
+      const mainRect = mainContainerRef.current.getBoundingClientRect();
+      const scaleRect = scaleRef.current.getBoundingClientRect();
+
+      // পরিবর্তন: newPaths এখন একটি অবজেক্ট
+      const newPaths = {};
+      questions.forEach(q => {
+        const inputEl = inputsContainerRef.current.querySelector(`[data-id='${q.id}']`);
+        if (!inputEl) return;
+
+        const x1 = scaleRect.left + (q.value / 100) * scaleRect.width - mainRect.left;
+        const y1 = scaleRect.bottom - mainRect.top;
+        
+        const inputRect = inputEl.getBoundingClientRect();
+        const x2 = inputRect.left + inputRect.width / 2 - mainRect.left;
+        const y2 = inputRect.top - mainRect.top;
+        
+        const controlX = (x1 + x2) / 2;
+        const controlY = y1 + 10;
+
+        // প্রশ্ন id-এর সাথে পাথ স্ট্রিং ম্যাপ করা হচ্ছে
+        newPaths[q.id] = `M ${x1} ${y1} Q ${controlX} ${controlY} ${x2} ${y2}`;
+      });
+
+      setLinePaths(newPaths);
+    };
+
+    const timeoutId = setTimeout(calculateLines, 100);
+    window.addEventListener('resize', calculateLines);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', calculateLines);
+    };
+  }, []); // শুধু প্রথমবার রান হবে
+
+  const getStyles = (question) => {
+    const userAnswer = userAnswers[question.id];
+    if (userAnswer === undefined || userAnswer === '') return 'border-gray-300';
+    if (parseInt(userAnswer, 10) === question.value) return 'border-green-500 bg-green-50';
+    return 'border-red-500 bg-red-50';
+  };
+
+  return (
+    <div ref={mainContainerRef} className="w-full max-w-5xl mx-auto p-8 bg-white rounded-2xl shadow-lg relative font-sans">
+      <h2 className="text-xl font-bold text-gray-800">Question 2</h2>
+      <p className="text-gray-600 mb-8">Which number?</p>
+
+      <svg className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
+        {/* পরিবর্তন: শুধুমাত্র উত্তর দেওয়া ইনপুটগুলোর জন্য লাইন দেখানো হবে */}
+        {questions.map(q => {
+          const hasAnswer = userAnswers[q.id] !== undefined && userAnswers[q.id] !== '';
+          const pathData = linePaths[q.id];
+
+          // যদি ব্যবহারকারী ইনপুটে কিছু লেখে এবং লাইনের পাথ ক্যালকুলেট করা থাকে, তবেই লাইনটি দেখানো হবে
+          if (hasAnswer && pathData) {
+            return (
+              <path 
+                key={q.id} 
+                d={pathData} 
+                stroke="#a0aec0" 
+                strokeWidth="1.5" 
+                fill="transparent" 
+              />
+            );
+          }
+          return null;
+        })}
+      </svg>
+      
+      <div ref={scaleRef} className="relative w-full h-10 mt-4 mb-20">
+        <div className="absolute bottom-0 w-full h-1 bg-gray-800 rounded-full"></div>
+        {[...Array(101)].map((_, i) => {
+          let height = 'h-2';
+          if (i % 10 === 0) height = 'h-4';
+          else if (i % 5 === 0) height = 'h-3';
+          
+          return (
+            <div key={i} className={`absolute bottom-0 bg-gray-800 w-0.5 ${height}`} style={{ left: `${i}%`, transform: 'translateX(-50%)' }}>
+              {(i === 0 || i === 50 || i === 100) && (
+                <span className="absolute -bottom-7 -translate-x-1/2 text-md font-medium text-gray-700">{i}</span>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      
+      <div ref={inputsContainerRef} className="relative flex justify-center items-center w-full flex-wrap gap-x-3 px-2">
+        {questions.map((q, index) => (
+          <React.Fragment key={q.id}>
+            <input
+              data-id={q.id}
+              type="number"
+              className={`w-16 h-10 text-center text-lg font-bold rounded-md border-2 outline-none transition-all duration-300 shadow-sm ${getStyles(q)}`}
+              onChange={(e) => handleInputChange(q.id, e.target.value)}
+              value={userAnswers[q.id] || ''}
+            />
+            {(index + 1) % 2 === 0 && index < questions.length - 1 && (
+              <div className="w-6" />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+
+      <div className="mt-12 space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex space-x-2">
+            <button onClick={handleCheckAnswers} className="px-5 py-2 text-sm font-semibold text-white bg-[#4A90E2] rounded-lg hover:bg-[#3A7BC8]">Check</button>
+            <button className="px-5 py-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">Hint</button>
+            <button className="px-5 py-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300">Show Solution</button>
+          </div>
+          <button className="px-5 py-2 font-semibold text-white bg-[#F5A623] rounded-full hover:bg-[#E49B20] flex items-center">
+            Next <span className="ml-2 text-xl">→</span>
+          </button>
+        </div>
+        
+        {showSuccess && (
+          <div className="p-3 text-center text-green-800 bg-green-100 border border-green-300 rounded-lg">
+            Correct! Great job.
+          </div>
+        )}
+
+        <button className="px-5 py-2 text-sm font-semibold text-gray-600 bg-transparent border border-gray-300 rounded-lg hover:bg-gray-100">
+          ← Switch Category
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default FinalNumberLineQuiz;
+
+
+
+
+
