@@ -3,13 +3,11 @@ import Navbar from "./navbar/Navbar";
 
 const RootLayout = () => {
   const location = useLocation();
-
-  
   const hideNavbarOnWelcome = location.pathname === "/";
 
   return (
     <div
-      className="min-h-screen flex flex-col bg-cover bg-center text-white"
+      className="min-h-screen flex flex-col bg-cover bg-center text-white rounded-t-3xl overflow-hidden"
       style={{ backgroundImage: "url('/images/background.png')" }}
     >
       {/* Navbar */}
