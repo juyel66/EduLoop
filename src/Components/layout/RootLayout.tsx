@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router";
 import Navbar from "./navbar/Navbar";
+import Footer from "./Footer";
 
 const RootLayout = () => {
   const location = useLocation();
@@ -7,7 +8,7 @@ const RootLayout = () => {
 
   return (
     <div
-      className="min-h-screen flex flex-col bg-cover bg-center text-white rounded-t-3xl overflow-hidden"
+      className="min-h-screen  flex flex-col bg-cover bg-center text-white rounded-t-3xl overflow-hidden"
       style={{ backgroundImage: "url('/images/background.png')" }}
     >
       {/* Navbar */}
@@ -16,6 +17,7 @@ const RootLayout = () => {
       {/* Page Content */}
       <div className="flex-grow">
         <Outlet />
+       { !hideNavbarOnWelcome &&<Footer />}
       </div>
     </div>
   );
