@@ -1,7 +1,8 @@
 import React from 'react';
 import Button from '../../Components/common/Button';
+import { Link } from 'react-router';
 
-const LoginPage: React.FC = () => {
+const ChooseYear: React.FC = () => {
   return (
     <div className="relative min-h-screen ">
       {/* Side Button fixed with Navbar alignment */}
@@ -44,16 +45,16 @@ const LoginPage: React.FC = () => {
           </div>
 
           {/* Log In Button */}
-          <button
+          <Link to='/choose-year'
             type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50"
+            className="w-full flex text-center justify-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-md transition duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50"
           >
             Log In
-          </button>
+          </Link>
 
           {/* Privacy statement */}
           <p className="text-gray-500 text-xs mt-6 mb-4">
-            No personal accounts. School-safe. No tracking.
+            No personal accounts. School-safe. No tracking. 
           </p>
 
           {/* Sign up link */}
@@ -69,4 +70,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default ChooseYear;
