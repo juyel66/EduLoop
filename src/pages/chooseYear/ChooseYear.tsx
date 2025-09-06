@@ -25,29 +25,29 @@ const ChooseYear: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-start pt-10 px-4 md:px-10">
+    <div className="relative  min-h-screen flex flex-col justify-start pt-10 px-4 md:px-10">
       {/* Header Section */}
-      <div className="flex flex-col items-start z-50">
+      <Link to="/login" className="flex flex-col  items-start z-50">
         <Button />
-        <p className="text-3xl lg:text-6xl font-semibold mt-4 lg:mt-8 mb-4 lg:mb-8 text-white">
+        <p className="text-3xl lg:text-6xl  font-semibold mt-4 lg:mt-8 mb-4 lg:mb-8 text-[#0F172A]">
           Choose Year
         </p>
-      </div>
+      </Link>
 
       {/* Cards Section */}
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1  md:grid-cols-4 lg:grid-cols-5 gap-6">
         {cardData.map((card) => (
           <Link
             to={`/subject/${card.id}`}
             key={card.id}
             onClick={() => setSelectedGroup(card.id)}
             className={`
-              flex flex-col bg-white p-6 rounded-2xl shadow-md cursor-pointer transition-all duration-300
+              flex flex-col bg-white   p-6 rounded-2xl border-2   cursor-pointer transition-all duration-300
               hover:shadow-xl hover:-translate-y-1 hover:bg-[#FFF0ED]
               ${
                 selectedGroup === card.id
-                  ? "border-2 border-red-400"
-                  : "border-2 border-transparent"
+                  ? "border-2 "
+                  : "border-1 border-[#FFF7ED] "
               }
             `}
           >

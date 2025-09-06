@@ -9,8 +9,9 @@ import { router } from "./routes/routes";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <div
-      className="min-h-screen bg-cover bg-center border-2 "
-      style={{ backgroundImage: "url('/images/welcomePage.png')" }}
+      className="min-h-screen bg-white  "
+      // style={{ backgroundImage: "url('/images/welcomePage.png')" }}
+      
     >
       <RouterProvider router={router} />
     </div>

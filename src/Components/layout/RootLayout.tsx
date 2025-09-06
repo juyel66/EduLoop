@@ -13,12 +13,14 @@ const RootLayout = () => {
 
       {/* Main Content with background image */}
       <main
-        className="flex-1 mt-2 ml-2 mb-2 mr-2 p-4 md:p-8 rounded-lg"
+        className="flex-1 mt-2 ml-2 bg-white border-3 border-[#FFF7ED] mb-2 mr-2 p-4 md:p-8 rounded-lg"
         style={{
-          backgroundImage: "url('/images/background.png')",
+          // backgroundImage: "url('/images/background.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
+          // border : "4px solid #E16641"
+          
         }}
       >
         <div className="w-full h-full min-h-[calc(100vh-3rem)] md:min-h-[calc(100vh-5rem)] rounded-lg">

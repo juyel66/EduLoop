@@ -4,6 +4,7 @@ import RootLayout from "../Components/layout/RootLayout";
 import WelcomePage from "../pages/WelcomePage/welcomePage";
 import ChooseYear from "../pages/chooseYear/ChooseYear";
 import Subject from "../pages/Subject/Subject";
+import Arithmetic from "../pages/Subject/Arithmetic/Arithmetic";
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +17,8 @@ export const router = createBrowserRouter([
     children: [
       { path: "login", element: <Login /> },
       { path: "choose-year", element: <ChooseYear /> },
-      { path: "subject/:groupId", element: <Subject /> }, //  Dynamic subject route
+      { path: "subject/:groupId", element: <Subject /> },
+      { path: "arithmetic", element: <Arithmetic /> },
     ],
   },
 ]);

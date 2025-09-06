@@ -4,7 +4,7 @@ const Navbar = () => {
         <div>
            <div
            style={{ backgroundImage: "url('/images/navbarImg.png')" }} 
-           className="navbar text-xl rounded-b-4xl   text-white z-50 bg-no-repeat bg-cover flex items-center justify-center">
+           className="navbar text-xl rounded-b-4xl bg-[#E16641]  text-white z-50 bg-no-repeat bg-cover flex items-center justify-center">
   <div className="navbar-start">
     <div className="dropdown">
 

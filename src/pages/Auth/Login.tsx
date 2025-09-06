@@ -6,14 +6,14 @@ const ChooseYear: React.FC = () => {
   return (
     <div className="relative min-h-screen  ">
       {/* Side Button fixed with Navbar alignment */}
-      <div className="absolute lg:ml-10 left-6 z-50">
+      <Link to="/" className="absolute lg:ml-10 left-6 z-50">
         <Button />
-      </div>
+      </Link>
 
       {/* Main Login Content */}
       <div className="flex items-center justify-center min-h-screen p-4">
         {/* Container for the login card */}
-        <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full text-center">
+        <div className="bg-white p-8 rounded-lg border-2 border-[#FFEDD5] shadow-lg max-w-sm w-full text-center">
           {/* Logo */}
           <div className="mb-8">
             <img
