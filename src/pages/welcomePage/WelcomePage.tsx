@@ -3,8 +3,8 @@ import { Link } from "react-router";
 const WelcomePage = () => {
   return (
     <div
-      className="text-xl text-white h-screen flex items-center justify-center bg-cover bg-center"
-      style={{ backgroundImage: "url('/images/bg.png')" }}
+      className="text-xl text-white h-screen flex items-center  justify-center bg-cover bg-center"
+      style={{ backgroundImage: "url('/images/welcomePage.png')" }}
     >
       <div className="text-center">
         <p className="lg:text-7xl text-3xl md:text-5xl lg:w-[1025px] font-bold">
@@ -27,5 +27,3 @@ const WelcomePage = () => {
   );
 };
 export default WelcomePage;
-
-

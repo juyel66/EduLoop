@@ -6,22 +6,21 @@ import ChooseYear from "../pages/chooseYear/ChooseYear";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/", // Welcome Page alada route
+    element: <WelcomePage />,
+  },
+  {
+    path: "/", // baki route gulo RootLayout use korbe
     element: <RootLayout />,
     children: [
       {
-        path: "/", 
-        element: <WelcomePage />,
-      },
-      {
-        path: "/login", 
+        path: "login",
         element: <Login />,
       },
       {
         path: "choose-year",
-        element: <ChooseYear />
-      }
-      
+        element: <ChooseYear />,
+      },
     ],
   },
 ]);

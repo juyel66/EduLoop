@@ -8,6 +8,11 @@ import { router } from "./routes/routes";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <div
+      className="min-h-screen bg-cover bg-center border-2 "
+      style={{ backgroundImage: "url('/images/welcomePage.png')" }}
+    >
+      <RouterProvider router={router} />
+    </div>
   </StrictMode>
 );
