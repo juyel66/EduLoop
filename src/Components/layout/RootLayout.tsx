@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router";
 import Navbar from "./navbar/Navbar";
+import Footer from "./Footer";
 
 const RootLayout = () => {
   const location = useLocation();
@@ -23,6 +24,7 @@ const RootLayout = () => {
         <div className="w-full h-full min-h-[calc(100vh-3rem)] md:min-h-[calc(100vh-5rem)] rounded-lg">
           <Outlet />
         </div>
+        <Footer />
       </main>
     </div>
   );
