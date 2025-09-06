@@ -6,7 +6,7 @@ const ChooseYear: React.FC = () => {
   return (
     <div className="relative min-h-screen  ">
       {/* Side Button fixed with Navbar alignment */}
-      <div className="absolute ml-10 left-6 z-50">
+      <div className="absolute lg:ml-10 left-6 z-50">
         <Button />
       </div>
 

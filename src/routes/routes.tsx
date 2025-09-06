@@ -8,24 +8,15 @@ import Subject from "../pages/Subject/Subject";
 export const router = createBrowserRouter([
   {
     path: "/", 
-    element: <WelcomePage />,
+    element: <WelcomePage />, // 🔹 WelcomePage only
   },
   {
-    path: "/", 
-    element: <RootLayout />,
+    path: "/",
+    element: <RootLayout />, // 🔹 Navbar + Outlet
     children: [
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "choose-year",
-        element: <ChooseYear />,
-      },
-      {
-        path: "subject",
-        element: <Subject />,
-      },
+      { path: "login", element: <Login /> },
+      { path: "choose-year", element: <ChooseYear /> },
+      { path: "subject/:groupId", element: <Subject /> }, //  Dynamic subject route
     ],
   },
 ]);
