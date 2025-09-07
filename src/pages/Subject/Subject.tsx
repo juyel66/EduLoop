@@ -32,7 +32,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ id, title, subtitle, color 
   const [checked, setChecked] = useState(false);
 
   return (
-    <Link to={`/subject/${id}`}>
+    <Link to={`/subject-category/${id}`}>
       <div className="flex flex-col p-12 rounded-2xl border-2 shadow-md border-[#FFF7ED] hover:shadow-xl hover:-translate-y-1 hover:border-[#E16641] transition-transform cursor-pointer bg-white">
         <div className="flex items-center mb-2">
           {/* Custom checkbox */}
