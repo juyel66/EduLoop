@@ -5,6 +5,7 @@ import WelcomePage from "../pages/WelcomePage/welcomePage";
 import ChooseYear from "../pages/chooseYear/ChooseYear";
 import Subject from "../pages/Subject/Subject";
 import Arithmetic from "../pages/Subject/Arithmetic/Arithmetic";
+import SubjectCategory from "../pages/SubjectCategory/SubjectCategory";
 
 export const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ export const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "choose-year", element: <ChooseYear /> },
       { path: "subject/:groupId", element: <Subject /> },
-      { path: "arithmetic", element: <Arithmetic /> },
+      { path: "subject-category/:id", element: <SubjectCategory /> },
     ],
   },
 ]);
