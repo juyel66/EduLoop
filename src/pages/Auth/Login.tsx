@@ -13,7 +13,7 @@ const ChooseYear: React.FC = () => {
       {/* Main Login Content */}
       <div className="flex items-center justify-center  p-4">
         {/* Container for the login card */}
-        <div className="bg-white mt-12 p-8 rounded-lg border-2 border-[#FFEDD5] shadow-lg max-w-sm w-full text-center">
+        <div className="bg-white mt-20 p-8 rounded-lg border-2 border-[#FFEDD5] shadow-lg max-w-sm w-full text-center">
           {/* Logo */}
           <div className="">
             <img
