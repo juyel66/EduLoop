@@ -1,5 +1,8 @@
 import React, { useState, useMemo } from 'react';
 
+// NOTE: The CategoryCard component and type definitions from your code
+// are used here without change. They are assumed to be in the same file.
+
 // Type definitions
 type Category = {
   title: string;
@@ -13,25 +16,15 @@ type CategoryCardProps = {
   onToggle: () => void;
 };
 
-// Sample categories
-const mainCategories: Category[] = [
-  { title: 'Nouns', description: 'Tap to start a new, non-repeating practice set.' },
-  { title: 'Verbs', description: 'Tap to start a new, non-repeating practice set.' },
-  { title: 'Adjectives', description: 'Tap to start a new, non-repeating practice set.' },
-  { title: 'Adverbs', description: 'Tap to start a new, non-repeating practice set.' },
-  { title: 'Articles', description: 'Tap to start a new, non-repeating practice set.' },
-  { title: 'Plurals', description: 'Tap to start a new, non-repeating practice set.' },
-];
-
 // Reusable Category Card
 const CategoryCard: React.FC<CategoryCardProps> = ({ title, description, isSelected, onToggle }) => {
   const borderColor = isSelected ? 'border-orange-500' : 'border-gray-200';
-  const shadow = isSelected ? 'shadow-md' : 'shadow-sm';
+  const shadow = isSelected ? 'shadow-lg' : 'shadow-sm';
   const bgColor = isSelected ? 'bg-orange-50' : 'bg-white';
 
   return (
     <label
-      className={`flex flex-col p-5 rounded-2xl gap-3 cursor-pointer border-2 transition-all duration-200 hover:bg-orange-50 hover:border-orange-300 ${borderColor} ${shadow} ${bgColor}`}
+      className={`flex flex-col p-6 rounded-2xl gap-3 cursor-pointer border-2 transition-all duration-200 hover:bg-orange-50 hover:border-orange-300 ${borderColor} ${shadow} ${bgColor}`}
     >
       <div className="flex items-center gap-3">
         <input
@@ -47,12 +40,21 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ title, description, isSelec
   );
 };
 
-// Main CategoryPicker Component
+
+// Main Component - Updated to match the new design
 const CategoryPicker: React.FC = () => {
   const [selected, setSelected] = useState<Record<string, boolean>>({
     'Nouns': true,
-    'Verbs': true,
   });
+
+  const mainCategories: Category[] = [
+    { title: 'Nouns', description: 'Tap to start a new, non-repeating practice set.' },
+    { title: 'Verbs', description: 'Tap to start a new, non-repeating practice set.' },
+    { title: 'Adjectives', description: 'Tap to start a new, non-repeating practice set.' },
+    { title: 'Adverbs', description: 'Tap to start a new, non-repeating practice set.' },
+    { title: 'Articles', description: 'Tap to start a new, non-repeating practice set.' },
+    { title: 'Plurals', description: 'Tap to start a new, non-repeating practice set.' },
+  ];
 
   const allCategoryTitles = useMemo(() => mainCategories.map(c => c.title), []);
   const areAllSelected = useMemo(
@@ -67,28 +69,15 @@ const CategoryPicker: React.FC = () => {
   const handleSelectAll = () => {
     const nextState = !areAllSelected;
     const newSelectedState: Record<string, boolean> = {};
-    allCategoryTitles.forEach(title => {
-      newSelectedState[title] = nextState;
-    });
+    allCategoryTitles.forEach(t => (newSelectedState[t] = nextState));
     setSelected(newSelectedState);
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 flex flex-col p-4 md:p-8 lg:p-12">
-      {/* Header */}
-      <header className="flex flex-col md:flex-row md:justify-between md:items-center mb-8">
-        <div>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800">Pick a category</h1>
-          <p className="text-gray-500 mt-1 md:text-lg">Choose multiple categories as needed</p>
-        </div>
-        <button className="mt-4 md:mt-0 bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-orange-600 transition-colors">
-          Start Now
-        </button>
-      </header>
-
-      {/* Categories Grid */}
-      <main className="flex-1">
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="w-full min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="w-full  mx-auto">
+        {/* Main Categories Grid */}
+        <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mainCategories.map(category => (
             <CategoryCard
               key={category.title}
@@ -98,26 +87,30 @@ const CategoryPicker: React.FC = () => {
               onToggle={() => handleToggle(category.title)}
             />
           ))}
-        </div>
+        </main>
 
-        {/* Select All */}
-        <div className="mt-8">
-          <CategoryCard
-            title="All in this Subject"
-            description="Mix all categories for varied practice."
-
-            isSelected={areAllSelected}
-            onToggle={handleSelectAll}
-          />
-        </div>
-
-        {/* Footer Start Button */}
-        <div className="mt-6">
-          <button className="w-full bg-slate-800 text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:bg-slate-700 transition-colors">
+        {/* Combined "Select All" and "Start Now" Container */}
+        <div className="mt-8 bg-white p-6 rounded-2xl shadow-lg w-full">
+          {/* Select All Row */}
+          <label className="flex items-start gap-4 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={areAllSelected}
+              onChange={handleSelectAll}
+              className="w-5 h-5 mt-1 rounded border-gray-400 text-orange-600 focus:ring-orange-500 flex-shrink-0"
+            />
+            <div>
+              <h3 className="font-bold text-gray-800 text-lg">All in this Subject</h3>
+              <p className="text-gray-500 text-sm mt-1">Mix all categories for varied practice.</p>
+            </div>
+          </label>
+          
+          {/* Start Now Button */}
+          <button className="mt-6 w-full bg-slate-800 text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500">
             Start Now
           </button>
         </div>
-      </main>
+      </div>
     </div>
   );
 };
