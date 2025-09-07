@@ -19,7 +19,7 @@ type CategoryCardProps = {
 };
 
 // Reusable Category Card
-const CategoryCard: React.FC<CategoryCardProps> = ({ title, description, isSelected, onToggle }) => {
+const CategoryCard: React.FC<CategoryCardProps> = ({ title, description, isSelected, onToggle,  }) => {
   const borderColor = isSelected ? 'border-orange-500' : 'border-gray-200';
   const shadow = isSelected ? 'shadow-lg' : 'shadow-sm';
   const bgColor = isSelected ? 'bg-orange-50' : 'bg-white';
@@ -79,7 +79,11 @@ const CategoryPicker: React.FC = () => {
 
     <div className=''>
 
-           <Link to="/login" className="inline-block       rounded-2xl">
+           <Link 
+            to="/choose-year"
+// to={`/subject-category/${id}`}
+            // to={`/subject/${card.id}`}
+             className="inline-block       rounded-2xl">
           <Button />
         </Link>
 
