@@ -12,7 +12,7 @@ const RootLayout = () => {
       {!hideNavbarOnWelcome && <Navbar />}
 
       {/* Main content */}
-      <main className="flex-1 mt-[64px] mb-[64px] overflow-auto p-4 md:p-8  rounded-lg">
+      <main className="flex-1  mb-[64px] overflow-auto p-4 md:p-8  rounded-lg">
         {/* mt-[64px] and mb-[64px] reserve space for fixed navbar and footer */}
         <Outlet />
       </main>
