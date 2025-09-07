@@ -7,27 +7,20 @@ const RootLayout = () => {
   const hideNavbarOnWelcome = location.pathname === "/";
 
   return (
-    <div className="min-h-screen flex flex-col  overflow-hidden">
-      {/* Navbar */}
+    <div className="flex flex-col min-h-screen">
+      {/* Navbar fixed top */}
       {!hideNavbarOnWelcome && <Navbar />}
 
-      {/* Main Content with background image */}
-      <main
-        className="flex-1 mt-2 ml-2 bg-white border-3 border-[#FFF7ED] mb-2 mr-2 p-4 md:p-8 rounded-lg"
-        style={{
-          // backgroundImage: "url('/images/background.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          // border : "4px solid #E16641"
-          
-        }}
-      >
-        <div className="w-full h-full min-h-[calc(100vh-3rem)] md:min-h-[calc(100vh-5rem)] rounded-lg">
-          <Outlet />
-        </div>
-        <Footer />
+      {/* Main content */}
+      <main className="flex-1 mt-[64px] mb-[64px] overflow-auto p-4 md:p-8  rounded-lg">
+        {/* mt-[64px] and mb-[64px] reserve space for fixed navbar and footer */}
+        <Outlet />
       </main>
+
+      {/* Footer fixed bottom */}
+      <div className="w-full">
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -9,7 +9,7 @@ import { router } from "./routes/routes";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <div
-      className="min-h-screen bg-white  "
+      className=" bg-white  "
       // style={{ backgroundImage: "url('/images/welcomePage.png')" }}
       
     >

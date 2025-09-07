@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router';
+import Button from '../../Components/common/Button';
 
 // NOTE: The CategoryCard component and type definitions from your code
 // are used here without change. They are assumed to be in the same file.
@@ -74,10 +76,27 @@ const CategoryPicker: React.FC = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 flex items-center justify-center p-4">
+
+    <div className=''>
+
+           <Link to="/login" className="inline-block       rounded-2xl">
+          <Button />
+        </Link>
+
+   <div className='text-[#0F172A] '>
+           <p className="lg:text-5xl  text-2xl font-semibold lg:mt-8 mt-4 lg:mb-8 text-[#0F172A]">
+          Pick a category
+        </p>
+        <p>Choose multiple categories as needed</p>
+   </div>
+
+
+         <div className="w-full  flex items-center justify-center  mt-10">
+        
       <div className="w-full  mx-auto">
+     
         {/* Main Categories Grid */}
-        <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <main className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-6">
           {mainCategories.map(category => (
             <CategoryCard
               key={category.title}
@@ -112,6 +131,8 @@ const CategoryPicker: React.FC = () => {
         </div>
       </div>
     </div>
+    </div>
+   
   );
 };
 

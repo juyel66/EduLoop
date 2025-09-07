@@ -4,18 +4,18 @@ import { Link } from 'react-router';
 
 const ChooseYear: React.FC = () => {
   return (
-    <div className="relative min-h-screen  ">
+    <div className="relative  ">
       {/* Side Button fixed with Navbar alignment */}
       <Link to="/" className="absolute lg:ml-10 left-6 z-50">
         <Button />
       </Link>
 
       {/* Main Login Content */}
-      <div className="flex items-center justify-center min-h-screen p-4">
+      <div className="flex items-center justify-center  p-4">
         {/* Container for the login card */}
-        <div className="bg-white p-8 rounded-lg border-2 border-[#FFEDD5] shadow-lg max-w-sm w-full text-center">
+        <div className="bg-white mt-12 p-8 rounded-lg border-2 border-[#FFEDD5] shadow-lg max-w-sm w-full text-center">
           {/* Logo */}
-          <div className="mb-8">
+          <div className="">
             <img
               src="/images/Logo.png"
               alt="Logo"

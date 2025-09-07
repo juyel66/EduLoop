@@ -25,7 +25,7 @@ const ChooseYear: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative  min-h-screen flex flex-col justify-start pt-10 px-4 md:px-10">
+    <div className="relative   flex flex-col justify-start pt-10 px-4 md:px-10">
       {/* Header Section */}
       <Link to="/login" className=" w-36">
         <Button />
