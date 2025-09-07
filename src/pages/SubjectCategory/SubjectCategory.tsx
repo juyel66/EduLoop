@@ -23,6 +23,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ title, description, isSelec
   const borderColor = isSelected ? 'border-orange-500' : 'border-gray-200';
   const shadow = isSelected ? 'shadow-lg' : 'shadow-sm';
   const bgColor = isSelected ? 'bg-orange-50' : 'bg-white';
+  
 
   return (
     <label
