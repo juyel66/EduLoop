@@ -105,6 +105,7 @@ const CategoryPicker: React.FC = () => {
           <CategoryCard
             title="All in this Subject"
             description="Mix all categories for varied practice."
+
             isSelected={areAllSelected}
             onToggle={handleSelectAll}
           />

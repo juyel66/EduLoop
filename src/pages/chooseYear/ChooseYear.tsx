@@ -27,12 +27,12 @@ const ChooseYear: React.FC = () => {
   return (
     <div className="relative  min-h-screen flex flex-col justify-start pt-10 px-4 md:px-10">
       {/* Header Section */}
-      <Link to="/login" className="flex flex-col  items-start z-50">
+      <Link to="/login" className=" w-36">
         <Button />
-        <p className="text-3xl lg:text-6xl  font-semibold mt-4 lg:mt-8 mb-4 lg:mb-8 text-[#0F172A]">
+      </Link>
+       <p className="text-3xl lg:text-6xl  font-semibold mt-4 lg:mt-8 mb-4 lg:mb-8 text-[#0F172A]">
           Choose Year
         </p>
-      </Link>
 
       {/* Cards Section */}
       <div className="grid grid-cols-1  md:grid-cols-4 lg:grid-cols-5 gap-6">

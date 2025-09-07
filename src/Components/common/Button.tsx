@@ -1,16 +1,12 @@
-
-
 const Button = () => {
   return (
-    <div>
-      <div className="flex items-center gap-6 bg-[#E16641] p-2  lg:w-36 rounded-2xl">
-        <img
-          className="bg-white lg:p-2 rounded-xl"
-          src="/public/images/leftIcons.png"
-          alt=""
-        />
-        <p>Back</p>
-      </div>
+    <div className="flex items-center gap-3 bg-[#E16641] p-2 w-32 lg:w-36 rounded-2xl cursor-pointer">
+      <img
+        className="bg-white p-1 lg:p-2 rounded-xl"
+        src="/images/leftIcons.png"
+        alt="back"
+      />
+      <p className="text-white font-medium">Back</p>
     </div>
   );
 };

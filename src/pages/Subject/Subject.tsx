@@ -63,22 +63,30 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ id, title, subtitle, color 
 
 const CategoryGrid: React.FC = () => {
   return (
-    <div className="">
-      <Link to="/choose-year" className="flex flex-col items-start z-50 ">
-        <Button />
-        <p className="lg:text-5xl text-2xl font-semibold lg:mt-8 mt-4 lg:mb-8  text-[#0F172A]">Choose your subject</p>
-      </Link>
+    <div className="min-h-screen  bg-gray-50">
+      <div className=" mx-auto px-4 md:px-8 py-10">
+        {/* Back Button */}
+        <Link to="/login" className="inline-block       rounded-2xl">
+          <Button />
+        </Link>
 
-      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 mt-5">
-        {categories.map((cat) => (
-          <CategoryCard
-            key={cat.id}
-            id={cat.id}
-            title={cat.title}
-            subtitle={cat.subtitle}
-            color={cat.color}
-          />
-        ))}
+        {/* Title */}
+        <p className="lg:text-5xl text-2xl font-semibold lg:mt-8 mt-4 lg:mb-8 text-[#0F172A]">
+          Choose your subject
+        </p>
+
+        {/* Categories grid */}
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 mt-5">
+          {categories.map((cat) => (
+            <CategoryCard
+              key={cat.id}
+              id={cat.id}
+              title={cat.title}
+              subtitle={cat.subtitle}
+              color={cat.color}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
