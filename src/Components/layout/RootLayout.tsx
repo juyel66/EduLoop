@@ -7,7 +7,7 @@ const RootLayout = () => {
   const hideNavbarOnWelcome = location.pathname === "/";
 
   return (
-    <div className="min-h-screen flex flex-col text-white overflow-hidden">
+    <div className="min-h-screen flex flex-col  overflow-hidden">
       {/* Navbar */}
       {!hideNavbarOnWelcome && <Navbar />}
 
