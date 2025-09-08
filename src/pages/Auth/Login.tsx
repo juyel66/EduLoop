@@ -1,14 +1,20 @@
 import React from 'react';
 import Button from '../../Components/common/Button';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const ChooseYear: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="relative  ">
       {/* Side Button fixed with Navbar alignment */}
-      <Link to="/" className="absolute lg:ml-10 left-6 z-50">
+      {/* <Link to="/" className="absolute lg:ml-10 left-6 z-50">
         <Button />
-      </Link>
+      </Link> */}
+
+     <div onClick={()=>navigate(-1)}>
+       <Button  />
+     </div>
 
       {/* Main Login Content */}
       <div className="flex items-center justify-center  p-4">
